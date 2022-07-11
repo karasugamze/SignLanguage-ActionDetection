@@ -1,17 +1,5 @@
 import os
-import numpy as np
-
-# path for exported data
-DATAPATH = os.path.join('MP_Data')
-
-# actions (moves) that we try to detect
-actions = np.array(['hello', 'thanks', 'iloveyour'])
-
-# Thirty videos worth of data
-no_sequences = 30
-
-# videos are going to be 30 frames in length
-sequence_length = 30
+from utils import actions, no_sequences, DATAPATH
 
 # Generate folders for each video of each action (e.x. MP_Data/hello/1)
 for action in actions:
