@@ -5,7 +5,7 @@ import mediapipe as mp
 import numpy as np
 
 # actions (moves) that we try to detect
-actions = np.array(['hello', 'thanks', 'iloveyour'])
+actions = np.array(['hello', 'thanks', 'iloveyou'])
 
 # Thirty videos worth of data
 no_sequences = 30
@@ -16,9 +16,9 @@ sequence_length = 30
 # path for exported keyframe Dada (.npy)
 DATAPATH = os.path.join('MP_Data')
 
-
 mp_holistic = mp.solutions.holistic  # holistic model for detection
 mp_drawing = mp.solutions.drawing_utils  # Drawing utilities for drawing detection
+
 
 def mediapipe_detection(image, model):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # Color conversion BGR 2 RGB
@@ -87,6 +87,3 @@ def extract_keypoint_values(results):
         if results.right_hand_landmarks else np.zeros(21 * 3)  # (21 Landmarks * x/y/z)
 
     return np.concatenate([pose, face, lh, rh])
-
-
-
