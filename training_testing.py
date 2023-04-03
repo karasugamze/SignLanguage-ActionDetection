@@ -73,7 +73,7 @@ def evaluateModel(model, X_test, y_test):
 
 
 if __name__ == '__main__':
-    retrain = True
+    retrain = False
     X_train, X_test, y_train, y_test = get_train_test_data()
     model = setup_model()
     if retrain:
