@@ -26,23 +26,23 @@ There are four main scripts in the program:
 To get started with the program, follow these steps:
 
 1. Install the required packages using the following command:<br>
-`pip install opencv-python mediapipe keras`
+```pip install opencv-python mediapipe keras```
 
 2. Clone the repository and navigate to the project directory.<br>
 `git clone https://github.com/Marc-Kruiss/SignLanguage-ActionDetection`<br>
-`cd SignLanguage-ActionDetection`
+```cd SignLanguage-ActionDetection```
 
 3. Run the `folder_setup` script to build the required folder structure.<br>
-`python folder_setup.py`
+```python folder_setup.py```
 
 4. Run the `setup_training_testing_keypoints` script to input the gestures for the actions and save the keypoints.<br>
-`python setup_training_testing_keypoints.py`
+```python setup_training_testing_keypoints.py```
 
 5. Train the model using the saved keypoints by running the `training_testing.py` script.<br>
-`python training_testing.py`
+```python training_testing.py```
 
 6. Use the `make_predictions` script to detect the gestures in real-time and build sentences.<br>
-`python make_predictions.py`
+```python make_predictions.py```
 
 ## References
 MediaPipe: https://mediapipe.dev/ <br>
