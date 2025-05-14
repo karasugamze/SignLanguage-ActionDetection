@@ -73,11 +73,16 @@ def evaluateModel(model, X_test, y_test):
 
 
 if __name__ == '__main__':
-    retrain = False
+    retrain = True  # Modeli yeniden eğitmek için True yapıyoruz
     X_train, X_test, y_train, y_test = get_train_test_data()
     model = setup_model()
     if retrain:
         train_model(model, X_train, y_train)
         saveModel(model)
 
-    evaluateModel(model, X_test, y_test)
+    # Model değerlendirme
+    try:
+        evaluateModel(model, X_test, y_test)
+    except ValueError as e:
+        print("Model değerlendirme hatası:", str(e))
+        print("Lütfen modeli yeniden eğitin.")
