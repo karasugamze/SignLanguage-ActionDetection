@@ -5,7 +5,27 @@ import mediapipe as mp
 import numpy as np
 
 # actions (moves) that we try to detect
-actions = np.array(['hello', 'thanks', 'iloveyou'])
+actions = np.array([])
+
+def add_action(action_name):
+    """Yeni bir hareket ekler"""
+    global actions
+    if action_name not in actions:
+        actions = np.append(actions, action_name)
+        print(f"'{action_name}' hareketi eklendi. Mevcut hareketler: {actions}")
+
+def remove_action(action_name):
+    """Bir hareketi listeden çıkarır"""
+    global actions
+    if action_name in actions:
+        actions = np.delete(actions, np.where(actions == action_name))
+        print(f"'{action_name}' hareketi çıkarıldı. Mevcut hareketler: {actions}")
+    else:
+        print(f"'{action_name}' hareketi listede bulunamadı.")
+
+def get_actions():
+    """Mevcut hareketleri döndürür"""
+    return actions
 
 # Thirty videos worth of data
 no_sequences = 30
@@ -18,6 +38,7 @@ DATAPATH = os.path.join('MP_Data')
 
 mp_holistic = mp.solutions.holistic  # holistic model for detection
 mp_drawing = mp.solutions.drawing_utils  # Drawing utilities for drawing detection
+mp_face_mesh = mp.solutions.face_mesh  # Face mesh for face connections
 
 
 def mediapipe_detection(image, model):
@@ -30,7 +51,7 @@ def mediapipe_detection(image, model):
 
 
 def draw_landmarks(image, results):
-    mp_drawing.draw_landmarks(image, results.face_landmarks, mp_holistic.FACE_CONNECTIONS)  # draw face connections
+    mp_drawing.draw_landmarks(image, results.face_landmarks, mp_face_mesh.FACEMESH_TESSELATION)  # draw face connections
     mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_holistic.POSE_CONNECTIONS)  # draw pose connections
     mp_drawing.draw_landmarks(image, results.left_hand_landmarks,
                               mp_holistic.HAND_CONNECTIONS)  # draw left hand Connections
@@ -40,7 +61,7 @@ def draw_landmarks(image, results):
 
 def draw_styled_landmarks(image, results):
     # draw face connections
-    mp_drawing.draw_landmarks(image, results.face_landmarks, mp_holistic.FACE_CONNECTIONS,
+    mp_drawing.draw_landmarks(image, results.face_landmarks, mp_face_mesh.FACEMESH_TESSELATION,
                               mp_drawing.DrawingSpec(color=(80, 110, 10), thickness=1, circle_radius=1),
                               # color landmarks
                               mp_drawing.DrawingSpec(color=(80, 110, 121), thickness=1, circle_radius=1)
@@ -87,3 +108,5 @@ def extract_keypoint_values(results):
         if results.right_hand_landmarks else np.zeros(21 * 3)  # (21 Landmarks * x/y/z)
 
     return np.concatenate([pose, face, lh, rh])
+
+add_action('hello')
